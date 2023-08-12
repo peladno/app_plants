@@ -47,6 +47,11 @@ class ItemDetail : Fragment() {
             binding.itemName.text = plant?.name
             binding.itemDescription.text = plant?.description
             binding.itemType.text = plant?.type
+            binding.buttonDetail.setOnClickListener {
+                sendEmail(
+                    plant?.name ?: ""
+                )
+            }
         }
     }
 
@@ -55,11 +60,11 @@ class ItemDetail : Fragment() {
         plantViewModel.clearData()
     }
 
-    private fun sendEmail(id: Int, name: String) {
+    private fun sendEmail(name: String) {
         val emailIntent = Intent(Intent.ACTION_SENDTO).apply {
             data = Uri.parse("mailto:")
             putExtra(Intent.EXTRA_EMAIL, arrayOf("j.perezurrutia@gmail.com"))
-            putExtra(Intent.EXTRA_SUBJECT, "Solicitud información sobre producto $id")
+            putExtra(Intent.EXTRA_SUBJECT, "Solicitud información sobre producto $name")
             putExtra(
                 Intent.EXTRA_TEXT,
                 "Hola,\nQuisiera pedir información sobre este producto " +
